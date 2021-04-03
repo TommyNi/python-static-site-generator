@@ -11,6 +11,17 @@ class Content(Mapping):
     def load(cls, string):
         _, fm, content = cls.__regex.split(string, 2)
         
-        yaml.load(rm, Loader = FullLoader)
+        metadata = load(fm, Loader = FullLoader)
         
         return cls(metadata, content)
+
+    def __init__(self, metadata, content):
+        self.data = metadata
+        self.data["content"] = content
+
+    @property
+    def type(self):
+        if "type" in self.data:
+            return self.data["type"]
+        else:
+            return None
