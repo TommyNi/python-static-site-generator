@@ -21,11 +21,21 @@ class Content(Mapping):
 
     @property
     def type(self):
-        if "type" in self.data:
-            return self.data["type"]
-        else:
-            return None
+        return self.data["type"] if "type" in self.data else None
 
     @property
     def body(self):
         return self.data["content"]
+
+    @type.setter
+    def type(self, type):
+        self.data["type"] = type
+
+    def __getitem__(self, key):
+        return self.data[key]
+
+    def __iter__(self):
+        self.data.__iter__()
+
+    def __len__(self):
+        return len(self.data)
